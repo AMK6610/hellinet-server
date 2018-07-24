@@ -1,6 +1,7 @@
 import math
 
 from Models.Army import Army
+
 class Node:
     def __init__(self, id, ownerID, position, factor, soldier_count, max_value=50):
         self.id = id
@@ -49,7 +50,7 @@ class Node:
                 self.reach(army2)
                 self.reach(army1)
 
-`    def populate(self):
+    def populate(self):
         if self.ownerID != 0:
             self.soldier_count += self.factor
             if self.soldier_count > self.max_value != -1:
