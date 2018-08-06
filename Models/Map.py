@@ -28,10 +28,12 @@ class Map:
     def populate(self):
         for node in self.nodes:
             node.populate()
+            print(node.id, "->", node.soldier_count, end="|")
+        print()
 
     def do_events(self, events):
         # events is a list of Army's reached
-        nodes_army_map = [[] for i in range(self.nodes)]
+        nodes_army_map = [[] for i in range(len(self.nodes))]
         for army in events:
             other_army_exist = False
 
@@ -47,9 +49,9 @@ class Map:
             if len(nodes_army_map[i]) == 0:
                 continue
             elif len(nodes_army_map[i]) == 1:
-                self.nodes[i].reach(nodes_army_map[i][0])
+                self.nodes[i].reach_single(nodes_army_map[i][0])
             elif len(nodes_army_map[i]) == 2:
-                self.nodes[i].reach(nodes_army_map[i][0], nodes_army_map[i][1])
+                self.nodes[i].reach_multiple(nodes_army_map[i][0], nodes_army_map[i][1])
             else:
                 raise Exception("more than two attackers")
 
@@ -61,3 +63,9 @@ class Map:
                 break
 
         return checkWin
+
+    def get_my_nodes(self, player_id):
+        return list(filter(lambda node:node.ownerID == player_id, self.nodes))
+
+    def get_enemy_nodes(self, player_id):
+        return list(filter(lambda node:node.ownerID != player_id, self.nodes))

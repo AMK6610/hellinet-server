@@ -1,6 +1,6 @@
 class Army:
-    def __init__(self, soldier_count, ownerID, source_node, destination_node):
-        self.soldier_count = soldier_count
+    def __init__(self, ownerID, source_node, destination_node):
+        self.soldier_count = source_node.soldier_count // 2
         self.ownerID = ownerID
         self.destination_node = destination_node
         self.source_node = source_node
