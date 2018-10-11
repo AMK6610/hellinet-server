@@ -2,22 +2,53 @@ import copy
 import sys
 import threading
 import time
+from subprocess import Popen, PIPE
 
 from Models.Army import Army
 from Models.Map import Map
 
-player1 = __import__(sys.argv[1][: -3])
-player2 = __import__(sys.argv[2][: -3])
+# player1 = __import__(sys.argv[1][: -3])
+# player2 = __import__(sys.argv[2][: -3])
+player1_id = 1
+player2_id = 2
+player1 = Popen(['client_tester1.exe', str(player1_id)], shell=True, stdout=PIPE, stdin=PIPE)
+player2 = Popen(['client_tester2.exe', str(player2_id)], shell=True, stdout=PIPE, stdin=PIPE)
 
 interval = 0.2
 
 
+def print(player, line):
+    player.stdin.write(bytes(str(line), "UTF-8"))
+
+
+def print_map(player, player_id, game_map):
+    print(player, "turn")
+    print(player, len(game_map.nodes))
+    for node in game_map.nodes:
+        print(player, node.id)
+        print(player, node.ownerID)
+        print(player, node.position[0])
+        print(player, node.position[1])
+        print(player, node.factor)
+        print(player, node.soldier_count if node.ownerID == player_id else -1)
+
+def read_decision(player):
+    result = player.stdout.readline().strip(" ")
+    #
+    #
+    #
+    #
+
 def get_decisions(game_map, event_queue):
     timer = int(round(time.time() * 1000))
-    player1_map = copy.deepcopy(game_map)
-    player2_map = copy.deepcopy(game_map)
-    p1_decision = player1.decide(player1_map, 1)
-    p2_decision = player2.decide(player2_map, 2)
+    print_map(player1, player1_id, game_map)
+    print_map(player2, player2_id, game_map)
+    p1_decision = read_decision(player1)
+    p2_decision = read_decision(player2)
+    # player1_map = copy.deepcopy(game_map)
+    # player2_map = copy.deepcopy(game_map)
+    # p1_decision = player1.decide(player1_map, 1)
+    # p2_decision = player2.decide(player2_map, 2)
     if p1_decision is not None:
         p1_decision = (p1_decision[0] - 1, p1_decision[1] - 1)
         if 0 <= p1_decision[0] < len(game_map.nodes) and game_map.nodes[p1_decision[0]].ownerID == 1:
@@ -66,8 +97,11 @@ def main():
         if interval_count % 10 == 0:
             get_decisions(game_map, event_queue)
     # thread.join()
+    print(player1, "shutdown")
+    print(player2, "shutdown")
     print("<------------------------- game has finished ------------------------->")
     print("The winner is", game_map.nodes[0].ownerID)
+
 
 if __name__ == "__main__":
     main()
