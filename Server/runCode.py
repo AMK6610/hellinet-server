@@ -22,8 +22,8 @@ for file in os.listdir(directory + "\Uploads\python"):
             otherfileAddress = os.getcwd()
             if otherfile.endswith(".py") and otherfile != file:
                 runCodesTogether(file,otherfile,fileAddress,otherfileAddress)
-        for otherfile in os.listdir(directory + "\Uploads\c++"):
-            os.chdir(directory + "\Uploads\c++")
+        for otherfile in os.listdir(directory + "\Uploads\exe"):
+            os.chdir(directory + "\Uploads\exe")
             otherfileAddress = os.getcwd()
             if otherfile.endswith(".exe"):
                 runCodesTogether(file, otherfile,fileAddress,otherfileAddress)
@@ -33,8 +33,8 @@ for file in os.listdir(directory + "\Uploads\python"):
             if otherfile.endswith(".pas"):
                 runCodesTogether(file, otherfile, fileAddress, otherfileAddress)
 
-for file in os.listdir(directory + "\Uploads\c++"):
-    os.chdir(directory + "\Uploads\c++")
+for file in os.listdir(directory + "\Uploads\exe"):
+    os.chdir(directory + "\Uploads\exe")
     fileAddress = os.getcwd();
     if file.endswith(".exe"):
         for otherfile in os.listdir(directory + "\Uploads\python"):
@@ -42,8 +42,8 @@ for file in os.listdir(directory + "\Uploads\c++"):
             otherfileAddress = os.getcwd()
             if otherfile.endswith(".py"):
                 runCodesTogether(file,otherfile,fileAddress,otherfileAddress)
-        for otherfile in os.listdir(directory + "\Uploads\c++"):
-            os.chdir(directory + "\Uploads\c++")
+        for otherfile in os.listdir(directory + "\Uploads\exe"):
+            os.chdir(directory + "\Uploads\exe")
             otherfileAddress = os.getcwd()
             if otherfile.endswith(".exe") and otherfile != file:
                 runCodesTogether(file, otherfile,fileAddress,otherfileAddress)
@@ -62,8 +62,8 @@ for file in os.listdir(directory + "\Uploads\pascal"):
             otherfileAddress = os.getcwd()
             if otherfile.endswith(".py"):
                 runCodesTogether(file,otherfile,fileAddress,otherfileAddress)
-        for otherfile in os.listdir(directory + "\Uploads\c++"):
-            os.chdir(directory + "\Uploads\c++")
+        for otherfile in os.listdir(directory + "\Uploads\exe"):
+            os.chdir(directory + "\Uploads\exe")
             otherfileAddress = os.getcwd()
             if otherfile.endswith(".exe"):
                 runCodesTogether(file, otherfile,fileAddress,otherfileAddress)
