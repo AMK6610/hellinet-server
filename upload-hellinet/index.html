@@ -1,0 +1,71 @@
+<!--<!DOCTYPE html>-->
+<!--<html>-->
+<!--<head>-->
+    <!--<meta charset="utf-8" />-->
+    <!--<title>Bootstrap Upload Control Template | PrepBootstrap</title>-->
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1.0" />-->
+    <!--<script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>-->
+    <!--<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css" />-->
+    <!--<link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.min.css" />-->
+    <!--<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>-->
+    <!--<link id="themecss" rel="stylesheet" type="text/css" href="https://www.shieldui.com/shared/components/latest/css/light/all.min.css" />-->
+    <!--<script type="text/javascript" src="js/jquery.min.js"></script>-->
+    <!--<script type="text/javascript" src="js/shieldui.min.js"></script>-->
+    <!--&lt;!&ndash; you need to include the ShieldUI CSS and JS assets in order for the Upload widget to work &ndash;&gt;-->
+<!--</head>-->
+<!--<body>-->
+
+<!--&lt;!&ndash; Bootstrap Upload Control - START &ndash;&gt;-->
+<!--<div class="container">-->
+    <!--<div class="page-header">-->
+        <!--<h1>Hellinet Upload Page ! <small>Upload your files here :)</small></h1>-->
+    <!--</div>-->
+    <!--<div class="col-md-4"></div>-->
+    <!--<div class="col-md-4">-->
+        <!--<form method="post" enctype="multipart/form-data" action="submit.php">-->
+            <!--<input type="file" id="upload" name="upload[]" multiple="multiple" />-->
+            <!--<p style="text-align: right; margin-top: 20px;">-->
+                <!--<input type="submit" value="Upload Files" class="btn btn-lg btn-primary" />-->
+            <!--</p>-->
+        <!--</form>-->
+    <!--</div>-->
+    <!--<div class="col-md-4"></div>-->
+<!--</div>-->
+<!--<script type="text/javascript">-->
+    <!--jQuery(function ($) {-->
+        <!--$("#files").shieldUpload();-->
+    <!--});-->
+<!--</script>-->
+<!--&lt;!&ndash; Bootstrap Upload Control - END &ndash;&gt;-->
+
+<!--</div>-->
+
+<!--</body>-->
+<!--</html>-->
+<html>
+    <head>
+        <title>
+            Hellinet Upload
+        </title>
+        <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
+        <link rel="stylesheet" href="css/style.css">
+        <script type="text/javascript" src="js/effects.js"></script>
+        <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css" />
+    </head>
+    <body>
+        <div class="container">
+            <div class="page-header">
+            <h1>Hellinet Upload Page ! <small>Upload your files here :)</small></h1>
+            </div>
+        </div>
+        <form method="post" class="file-uploader" action="submit.php" enctype="multipart/form-data">
+            <div class="file-uploader__message-area">
+                <p>Select a file to upload</p>
+            </div>
+            <div class="file-chooser">
+                <input class="file-chooser__input" type="file" id="upload" name="upload[]" multiple>
+            </div>
+            <input class="file-uploader__submit-button" type="submit" value="Upload">
+        </form>
+    </body>
+</html>

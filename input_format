@@ -1,0 +1,4 @@
+> "turn" || "shutdown"
+> n
+> id ownerID posx posy factor soldier_count max_value
+< from to

@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1536989742 source:e:\amir\ut\helli\hellinet_server_python\tests\client_tester\client_tester\source.cpp
+	<iostream>
+	<string>
+
