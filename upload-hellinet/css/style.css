@@ -55,7 +55,7 @@
 .file-uploader {
     max-width: 400px;
     height: auto;
-    margin: 50px auto;
+    margin: 20px auto;
 }
 .file-uploader * {
     display: block;
@@ -116,8 +116,7 @@
 }
 
 .error {
-    background-color: #d65d38;
-    color: white;
+    color: red;
 }
 
 *, *::before, *::after {
@@ -125,6 +124,43 @@
 }
 
 ul, li {
-    margin: 0;
+    margin: 10px;
     padding: 0;
+    text-align: left;
+}
+
+
+.Card{
+    box-shadow: 0 2px 40px rgba(0,0,0,0.1);
+    background-color: white;
+    margin-top: 50px;
+    border-radius: 10px;
+    padding: 15px 10px 15px 10px;
+    border: none;
+    text-align: center;
+}
+
+.Card:hover{
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+}
+
+.custom-nav {
+    margin: 0;
+}
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    border-radius: 5px;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
 }

@@ -137,5 +137,6 @@ upload-hellinet/.idea/**
 Tests/client_tester/.vs/**
 Tests/client_tester/client_tester/Debug/**
 Tests/client_tester/client_tester/.objs/**
+upload-hellinet/vendor/**
 *.xml
 *.iml

@@ -1,3 +1,6 @@
+<?php
+    include('session.php');
+?>
 <html>
     <head>
         <title> Uploading ...</title>
@@ -41,16 +44,21 @@
     ?>
     <body>
         <div class="container">
-                <?php
-                    if($flag == $cnt && $flag != 0)
-                        echo "<div class='col align-self-center alert alert-success' role='alert' style='height: 100px; text-align: center; margin-top: 300px; padding-top: 40px;\'>
-                        Your file(s) are successfully uploaded!
-                        </div>";
-                    else
-                        echo "<div class='col align-self-center alert alert-danger' role='alert' style='height: 100px; text-align: center; margin-top: 300px; padding-top: 40px;'>
-                        Could not upload your file! A problem detected
-                        </div>";
-                ?>
+            <?php
+                if($flag == $cnt && $flag != 0){
+                    echo "<div class='col align-self-center alert alert-success' role='alert' style='height: 100px; text-align: center; margin-top: 300px; padding-top: 40px;'>
+                    Your file(s) are successfully uploaded!<br>
+                    Running ...
+                    </div>";
+                    $command = escapeshellcmd('python ../Server/runCode.py');
+                    $output = shell_exec($command);
+                    header("Location: leaderboard.php");
+                }
+                else
+                    echo "<div class='col align-self-center alert alert-danger' role='alert' style='height: 100px; text-align: center; margin-top: 300px; padding-top: 40px;'>
+                    Could not upload your file! A problem detected
+                    </div>";
+            ?>
         </div>
     </body>
 </html>
