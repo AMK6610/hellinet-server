@@ -28,7 +28,7 @@ class Map:
     def populate(self):
         for node in self.nodes:
             node.populate()
-            print(node.id, "->", node.soldier_count, end="|")
+            print(node.id, "->", node.soldier_count, "end=|")
         print()
 
     def do_events(self, events):

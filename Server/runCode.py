@@ -10,6 +10,8 @@ class Result:
         self.time = 20
 
 def runCodesTogether(file,otherfile,fileAddress,otherfileAddress):
+    # fileAddress = fileAddress.replace('C:\\Users\\Ali\\PycharmProjects\\hellinet_server_python\\','')
+    # otherfileAddress = otherfileAddress.replace('C:\\Users\\Ali\\PycharmProjects\\hellinet_server_python\\','')
     current_milli_time = lambda: int(round(time.time() * 1000))
     os.chdir(directory + "\Server")
     # print(os.path.join(fileAddress, file))

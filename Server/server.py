@@ -7,30 +7,35 @@ from subprocess import Popen, PIPE
 from Models.Army import Army
 from Models.Map import Map
 
-# player1 = __import__(sys.argv[1][: -3])
-# player2 = __import__(sys.argv[2][: -3])
+# f = open("demofile.txt", "w")
+# f.write("Now the file has one more line!")
+# f.write(str(sys.argv))
+# f.close()
+
+player1Str = sys.argv[1]
+player2Str = sys.argv[2]
 player1_id = 1
 player2_id = 2
-player1 = Popen(['client_tester1.exe', str(player1_id)], shell=True, stdout=PIPE, stdin=PIPE)
-player2 = Popen(['client_tester2.exe', str(player2_id)], shell=True, stdout=PIPE, stdin=PIPE)
+player1 = Popen([player1Str, str(player1_id)], shell=True, stdout=PIPE, stdin=PIPE)
+player2 = Popen([player2Str, str(player2_id)], shell=True, stdout=PIPE, stdin=PIPE)
 
 interval = 0.2
 
 
-def print(player, line):
+def myPrint(player, line):
     player.stdin.write(bytes(str(line), "UTF-8"))
 
 
 def print_map(player, player_id, game_map):
-    print(player, "turn")
-    print(player, len(game_map.nodes))
+    myPrint(player, "turn")
+    myPrint(player, len(game_map.nodes))
     for node in game_map.nodes:
-        print(player, node.id)
-        print(player, node.ownerID)
-        print(player, node.position[0])
-        print(player, node.position[1])
-        print(player, node.factor)
-        print(player, node.soldier_count if node.ownerID == player_id else -1)
+        myPrint(player, node.id)
+        myPrint(player, node.ownerID)
+        myPrint(player, node.position[0])
+        myPrint(player, node.position[1])
+        myPrint(player, node.factor)
+        myPrint(player, node.soldier_count if node.ownerID == player_id else -1)
 
 def read_decision(player):
     result = player.stdout.readline().strip(" ")
@@ -97,8 +102,8 @@ def main():
         if interval_count % 10 == 0:
             get_decisions(game_map, event_queue)
     # thread.join()
-    print(player1, "shutdown")
-    print(player2, "shutdown")
+    myPrint(player1, "shutdown")
+    myPrint(player2, "shutdown")
     print("<------------------------- game has finished ------------------------->")
     print("The winner is", game_map.nodes[0].ownerID)
 
