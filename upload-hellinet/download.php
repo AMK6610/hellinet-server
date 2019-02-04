@@ -48,13 +48,13 @@
                 <ul>
                     <li>
                         You can download required files from here:
-                        <a href="test.zip">
+                        <a href="sample.zip">
                             Sample Code
                         </a>
                     </li>
                     <li>
                         Documentation:
-                        <a href="test.zip">
+                        <a href="Documentation.pdf">
                             Documentation
                         </a>
                     </li>
