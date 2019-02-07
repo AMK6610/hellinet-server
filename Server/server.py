@@ -36,7 +36,8 @@ def print_map(player, player_id, game_map):
         myPrint(player, node.position[0])
         myPrint(player, node.position[1])
         myPrint(player, node.factor)
-        myPrint(player, node.soldier_count if node.ownerID == player_id else -1)
+        myPrint(player, node.soldier_count)
+        # myPrint(player, node.soldier_count if node.ownerID == player_id else -1)
 
 def read_decision(player):
     result = player.stdout.readline().decode('UTF-8').replace("\r\n", "").split(' ')

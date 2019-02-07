@@ -4,7 +4,7 @@ from openpyxl.styles import Font
 from subprocess import Popen, PIPE
 import time
 
-filepath = 'OutputExcel.xlsx'
+filepath = '../OutputExcel.xlsx'
 
 class Result:
     def __init__(self):
@@ -46,7 +46,7 @@ except:
     worksheet = wb.active
     # print(worksheet.title)
     worksheet.title = "Sheet1"
-    filepath = "OutputExcel.xlsx"
+    filepath = "../OutputExcel.xlsx"
     wb.save(filepath)
     # headerRows = createDefaultRow()
     # print(headerRows)
