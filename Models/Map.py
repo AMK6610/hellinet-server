@@ -28,8 +28,7 @@ class Map:
     def populate(self):
         for node in self.nodes:
             node.populate()
-            print(node.id, "->", node.soldier_count, "end=|")
-        print()
+            # print(node.id, node.ownerID, "->", node.soldier_count, "end=|")
 
     def do_events(self, events):
         # events is a list of Army's reached
@@ -58,7 +57,7 @@ class Map:
     def check_finish(self):
         checkWin = True
         for node in self.nodes:
-            if node.ownerID != self.nodes[0].ownerID:
+            if node.ownerID != 0 and node.ownerID != self.nodes[0].ownerID:
                 checkWin = False
                 break
 

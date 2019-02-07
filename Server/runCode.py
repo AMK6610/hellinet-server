@@ -1,38 +1,45 @@
 import os
 import openpyxl
 from openpyxl.styles import Font
-from subprocess import Popen , PIPE
+from subprocess import Popen, PIPE
 import time
+
+filepath = 'OutputExcel.xlsx'
 
 class Result:
     def __init__(self):
         self.out = 1
         self.time = 20
 
-def runCodesTogether(file,otherfile,fileAddress,otherfileAddress):
+
+def runCodesTogether(file, otherfile, fileAddress, otherfileAddress):
     # fileAddress = fileAddress.replace('C:\\Users\\Ali\\PycharmProjects\\hellinet_server_python\\','')
     # otherfileAddress = otherfileAddress.replace('C:\\Users\\Ali\\PycharmProjects\\hellinet_server_python\\','')
-    current_milli_time = lambda: int(round(time.time() * 1000))
+    current_milli_time = int(round(time.time() * 1000))
     os.chdir(directory + "\Server")
     # print(os.path.join(fileAddress, file))
-    fight = Popen(['python', 'server.py', os.path.join(fileAddress, file), os.path.join(otherfileAddress,otherfile)], shell=True,
-                    stdout=PIPE, stdin=PIPE)
+    fight = Popen(['python', 'server.py', os.path.join(fileAddress, file), os.path.join(otherfileAddress, otherfile)],
+                  shell=True,
+                  stdout=PIPE, stdin=PIPE)
     out, err = fight.communicate()
-    fight.wait()
-    current_milli_time2 = lambda: int(round(time.time() * 1000))
+    print(out, err)
+    # fight.wait()
+    current_milli_time2 = int(round(time.time() * 1000))
     processTime = current_milli_time2 - current_milli_time
     result = Result()
-    result.out = out
-    result.time = time
+    result.out = int(out.decode('UTF-8').replace("\r\n", "").split(' ')[-1])
+    print(result.out)
+    result.time = processTime
     return result
     # print(out)
+
 
 os.chdir("..")
 directory = os.getcwd()
 excelDir = directory
 
 try:
-    wb = openpyxl.load_workbook('OutputExcel.xlsx')
+    wb = openpyxl.load_workbook(filepath)
     worksheet = wb.active
 except:
     wb = openpyxl.Workbook()
@@ -67,8 +74,7 @@ sheet['F1'].font = fontObj1
 sheet['G1'].font = fontObj1
 
 columncounter = 2;
-
-wb.save('OutputExcel.xlsx')
+wb.save(filepath)
 
 for file in os.listdir(directory + "\\Uploads\python"):
     os.chdir(directory + "\\Uploads\python")
@@ -80,16 +86,16 @@ for file in os.listdir(directory + "\\Uploads\python"):
             # otherfile = os.open("SampleCode.py",os.O_RDWR)
             if otherfile.endswith(".py"):
                 wins = 0
-                sheet.cell(row=columncounter, column=1).value = (os.path.splitext(os.path.realpath(file))[0])
+                sheet.cell(row=columncounter, column=1).value = file.split('.')[0]
                 for i in range(0, 5):
-                    result = runCodesTogether(file,otherfile,fileAddress,otherfileAddress)
+                    result = runCodesTogether(file, otherfile, fileAddress, otherfileAddress)
                     if result.out == 1:
                         wins += 1
                         col = 3 + i
                         sheet.cell(row=columncounter, column=col).value = result.time
                     else:
                         col = 3 + i
-                        sheet.cell(row=columncounter, column=col).value = "-"
+                        sheet.cell(row=columncounter, column=col).value = result.time
                     sheet.cell(row=columncounter, column=2).value = wins
                 columncounter += 1
         # for otherfile in os.listdir(directory + "\\Uploads\python"):
@@ -139,16 +145,16 @@ for file in os.listdir(directory + "\\Uploads\exe"):
             # otherfile = os.open("SampleCode.py",os.O_RDWR)
             if otherfile.endswith(".py"):
                 wins = 0
-                sheet.cell(row=columncounter, column=1).value = (os.path.splitext(os.path.realpath(file))[0])
+                sheet.cell(row=columncounter, column=1).value = file.split('.')[0]
                 for i in range(0, 5):
-                    result = runCodesTogether(file,otherfile,fileAddress,otherfileAddress)
+                    result = runCodesTogether(file, otherfile, fileAddress, otherfileAddress)
                     if result.out == 1:
                         wins += 1
                         col = 3 + i
                         sheet.cell(row=columncounter, column=col).value = result.time
                     else:
                         col = 3 + i
-                        sheet.cell(row=columncounter, column=col).value = "-"
+                        sheet.cell(row=columncounter, column=col).value = result.time
                     sheet.cell(row=columncounter, column=2).value = wins
                 columncounter += 1
     # if file.endswith(".exe"):
@@ -199,16 +205,16 @@ for file in os.listdir(directory + "\\Uploads\pascal"):
             # otherfile = os.open("SampleCode.py",os.O_RDWR)
             if otherfile.endswith(".py"):
                 wins = 0
-                sheet.cell(row=columncounter, column=1).value = (os.path.splitext(os.path.realpath(file))[0])
+                sheet.cell(row=columncounter, column=1).value = file.split('.')[0]
                 for i in range(0, 5):
-                    result = runCodesTogether(file,otherfile,fileAddress,otherfileAddress)
+                    result = runCodesTogether(file, otherfile, fileAddress, otherfileAddress)
                     if result.out == 1:
                         wins += 1
                         col = 3 + i
                         sheet.cell(row=columncounter, column=col).value = result.time
                     else:
                         col = 3 + i
-                        sheet.cell(row=columncounter, column=col).value = "-"
+                        sheet.cell(row=columncounter, column=col).value = result.time
                     sheet.cell(row=columncounter, column=2).value = wins
                 columncounter += 1
     # if file.endswith(".pas"):
@@ -248,3 +254,4 @@ for file in os.listdir(directory + "\\Uploads\pascal"):
     #                 sheet.cell(row=columncounter, column=1).value = "Loser"
     #                 sheet.cell(row=columncounter, column=2).value = "Winner"
     #             columncounter += 1
+wb.save(filepath)

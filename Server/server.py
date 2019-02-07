@@ -23,13 +23,14 @@ interval = 0.2
 
 
 def myPrint(player, line):
-    player.stdin.write(bytes(str(line), "UTF-8"))
+    player.stdin.write(bytes(str(line) + "\n", "UTF-8"))
+    player.stdin.flush()
 
 
 def print_map(player, player_id, game_map):
     myPrint(player, "turn")
     myPrint(player, len(game_map.nodes))
-    for node in game_map.nodes:
+    for i, node in enumerate(game_map.nodes):
         myPrint(player, node.id)
         myPrint(player, node.ownerID)
         myPrint(player, node.position[0])
@@ -38,24 +39,31 @@ def print_map(player, player_id, game_map):
         myPrint(player, node.soldier_count if node.ownerID == player_id else -1)
 
 def read_decision(player):
-    result = player.stdout.readline().strip(" ")
+    result = player.stdout.readline().decode('UTF-8').replace("\r\n", "").split(' ')
+    result = list(map(int, result))
+    print("result is : ", result, player)
+    return result
     #
     #
     #
     #
 
+
 def get_decisions(game_map, event_queue):
     timer = int(round(time.time() * 1000))
+    for node in game_map.nodes:
+        print(node.soldier_count, end='\t')
     print_map(player1, player1_id, game_map)
     print_map(player2, player2_id, game_map)
     p1_decision = read_decision(player1)
     p2_decision = read_decision(player2)
+    print(p1_decision, p2_decision)
     # player1_map = copy.deepcopy(game_map)
     # player2_map = copy.deepcopy(game_map)
     # p1_decision = player1.decide(player1_map, 1)
     # p2_decision = player2.decide(player2_map, 2)
     if p1_decision is not None:
-        p1_decision = (p1_decision[0] - 1, p1_decision[1] - 1)
+        p1_decision = (p1_decision[0], p1_decision[1])
         if 0 <= p1_decision[0] < len(game_map.nodes) and game_map.nodes[p1_decision[0]].ownerID == 1:
             army = Army(1, game_map.nodes[p1_decision[0]], game_map.nodes[p1_decision[1]])
 
@@ -64,7 +72,7 @@ def get_decisions(game_map, event_queue):
             print("player 1 decided to attack from ", army.source_node.id, "to",
                   army.destination_node.id, "by", army.soldier_count, "number of soldiers")
     if p2_decision is not None:
-        p2_decision = (p2_decision[0] - 1, p2_decision[1] - 1)
+        p2_decision = (p2_decision[0], p2_decision[1])
         if 0 <= p2_decision[0] < len(game_map.nodes) and game_map.nodes[p2_decision[0]].ownerID == 2:
             army = Army(2, game_map.nodes[p2_decision[0]], game_map.nodes[p2_decision[1]])
 
@@ -102,6 +110,8 @@ def main():
         if interval_count % 10 == 0:
             get_decisions(game_map, event_queue)
     # thread.join()
+    # player1.terminate()
+    # player2.terminate()
     myPrint(player1, "shutdown")
     myPrint(player2, "shutdown")
     print("<------------------------- game has finished ------------------------->")
