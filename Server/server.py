@@ -1,8 +1,13 @@
 import copy
+import os
 import sys
-import threading
 import time
 from subprocess import Popen, PIPE
+
+os.chdir("..")
+sys.path.append(os.path.join(os.getcwd()))
+os.chdir("Server")
+print('\n'.join(sys.path))
 
 from Models.Army import Army
 from Models.Map import Map

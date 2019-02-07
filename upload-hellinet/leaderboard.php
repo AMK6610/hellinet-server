@@ -51,6 +51,9 @@ include('session.php');
     <table>
         <tr>
             <th>
+                #
+            </th>
+            <th>
                 Team
             </th>
             <th>
@@ -67,7 +70,7 @@ include('session.php');
             require_once "vendor/autoload.php";
             function cmp($a, $b)
             {
-                return strcmp($b->score, $a->score);
+                return intval($a->score) < intval($b->score);
             }
 
             class Team{
@@ -97,17 +100,18 @@ include('session.php');
                     $worksheet->getCellByColumnAndRow(6, $row)->getValue(),
                     $worksheet->getCellByColumnAndRow(7, $row)->getValue());
                 $max_time = max($times);
-                $score = 100 * $wins * (1.0/array_sum($times));
+                $score = 10000 * $wins * (1.0/array_sum($times));
                 array_push($teams, new Team($team_name, $wins, $max_time, $score));
                 $row += 1;
             }
             usort($teams, "cmp");
-            foreach($teams as $team){
+            for($i = 0; $i < sizeof($teams); $i++){
                 echo "<tr>";
-                echo "<td>". $team->team_name . "</td>";
-                echo "<td>". $team->wins . "</td>";
-                echo "<td>". $team->max_time . "</td>";
-                echo "<td>". $team->score . "</td>";
+                echo "<td>". (string)($i + 1) . "</td>";
+                echo "<td>". $teams[$i]->team_name . "</td>";
+                echo "<td>". $teams[$i]->wins . "</td>";
+                echo "<td>". $teams[$i]->max_time . "</td>";
+                echo "<td>". $teams[$i]->score . "</td>";
                 echo "</tr>";
             }
         ?>

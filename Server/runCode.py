@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import os
 import openpyxl
 from openpyxl.styles import Font

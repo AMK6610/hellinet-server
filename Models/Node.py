@@ -1,7 +1,5 @@
 import math
 
-from Models.Army import Army
-
 class Node:
     def __init__(self, id, ownerID, position, factor, soldier_count, max_value=50):
         self.id = id
