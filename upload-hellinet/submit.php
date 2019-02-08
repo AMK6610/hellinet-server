@@ -3,7 +3,7 @@
 ?>
 <html>
     <head>
-        <title> Uploading ...</title>
+        <title> Running ...</title>
     </head>
     <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css" />
     <?php
@@ -11,7 +11,7 @@
         $cnt = count($_FILES['upload']['name']);
         if($cnt > 0) {
             for($i = 0 ; $i < count($_FILES['upload']['name']); $i++){
-                $upload_dir = $_SERVER['DOCUMENT_ROOT'] . "/Uploads/";
+                $upload_dir = "../Uploads/";
                 // name of the directory where the files should be stored
                 $ext = pathinfo($_FILES['upload']['name'][$i], PATHINFO_EXTENSION);
                 if($ext == "py"){
@@ -45,14 +45,19 @@
     <body>
         <div class="container">
             <?php
-                if($flag == $cnt && $flag != 0){
+                if($flag == $cnt && $flag != 0) {
                     echo "<div class='col align-self-center alert alert-success' role='alert' style='height: 100px; text-align: center; margin-top: 300px; padding-top: 40px;'>
                     Your file(s) are successfully uploaded!<br>
                     Running ...
                     </div>";
-                    $command = escapeshellcmd('python ../Server/runCode.py');
-                    $output = shell_exec($command);
-                    header("Location: leaderboard.php");
+//                    $command = escapeshellcmd('python ../Server/runCode.py');
+                    if ($cnt > 0) {
+                        for ($i = 0; $i < count($_FILES['upload']['name']); $i++) {
+                            $output = shell_exec("python ../Server/runCode.py" . $_FILES['upload']['name'][$i] . "2>&1");
+                            //                    echo $output;
+                        }
+                        header("Location: leaderboard.php");
+                    }
                 }
                 else
                     echo "<div class='col align-self-center alert alert-danger' role='alert' style='height: 100px; text-align: center; margin-top: 300px; padding-top: 40px;'>
