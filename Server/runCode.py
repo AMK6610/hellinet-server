@@ -81,6 +81,30 @@ sheet['G1'].font = fontObj1
 columncounter = 2;
 wb.save(filepath)
 
+# if shouldRunFile != "":
+#     myRange = 2
+#     for i in range(1, myRange):
+#         data = sheet.cell(row=i, column=1)
+#         if data == "":
+#             if shouldRunFile.endswith(".py"):
+#                 os.chdir(directory + "\\Uploads\python")
+#                 fileAddress = os.getcwd();
+#             elif shouldRunFile.endswith(".c") or shouldRunFile.endswith(".cpp"):
+#                 subprocess.call(["gcc", shouldRunFile])
+#             for i in range(0, 5):
+#                 result = runCodesTogether(shouldRunFile, otherfile, fileAddress, otherfileAddress)
+#                 if result.out == 1:
+#                     wins += 1
+#                     col = 3 + i
+#                     sheet.cell(row=columncounter, column=col).value = result.time
+#                 else:
+#                     col = 3 + i
+#                     sheet.cell(row=columncounter, column=col).value = result.time
+#                 sheet.cell(row=columncounter, column=2).value = wins
+#             # sheet.cell(row=i, column=1) =
+#         else:
+#             myRange += 1
+
 for file in os.listdir(directory + "\\Uploads\python"):
     os.chdir(directory + "\\Uploads\python")
     fileAddress = os.getcwd();
