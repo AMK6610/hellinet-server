@@ -5,8 +5,11 @@ import openpyxl
 from openpyxl.styles import Font
 from subprocess import Popen, PIPE
 import time
+import sys
+import subprocess
 
 filepath = '../OutputExcel.xlsx'
+shouldRunFile = sys.argv[0]
 
 class Result:
     def __init__(self):
@@ -81,25 +84,33 @@ wb.save(filepath)
 for file in os.listdir(directory + "\\Uploads\python"):
     os.chdir(directory + "\\Uploads\python")
     fileAddress = os.getcwd();
-    if file.endswith(".py"):
-        for otherfile in os.listdir(directory + "\\Uploads\Sample"):
-            os.chdir(directory + "\\Uploads\Sample")
-            otherfileAddress = os.getcwd()
-            # otherfile = os.open("SampleCode.py",os.O_RDWR)
-            if otherfile.endswith(".py"):
-                wins = 0
-                sheet.cell(row=columncounter, column=1).value = file.split('.')[0]
-                for i in range(0, 5):
-                    result = runCodesTogether(file, otherfile, fileAddress, otherfileAddress)
-                    if result.out == 1:
-                        wins += 1
-                        col = 3 + i
-                        sheet.cell(row=columncounter, column=col).value = result.time
-                    else:
-                        col = 3 + i
-                        sheet.cell(row=columncounter, column=col).value = result.time
-                    sheet.cell(row=columncounter, column=2).value = wins
-                columncounter += 1
+    myRange = 2
+    for i in range(1, myRange):
+        data = sheet.cell(row=i, column=1)
+        if file.split('.')[0] != data and file.endswith(".py"):
+            for otherfile in os.listdir(directory + "\\Uploads\Sample"):
+                os.chdir(directory + "\\Uploads\Sample")
+                otherfileAddress = os.getcwd()
+                # otherfile = os.open("SampleCode.py",os.O_RDWR)
+                if otherfile.endswith(".py"):
+                    wins = 0
+                    sheet.cell(row=columncounter, column=1).value = file.split('.')[0]
+                    for i in range(0, 5):
+                        result = runCodesTogether(file, otherfile, fileAddress, otherfileAddress)
+                        if result.out == 1:
+                            wins += 1
+                            col = 3 + i
+                            sheet.cell(row=columncounter, column=col).value = result.time
+                        else:
+                            col = 3 + i
+                            sheet.cell(row=columncounter, column=col).value = result.time
+                        sheet.cell(row=columncounter, column=2).value = wins
+                    columncounter += 1
+
+        j = i + 1
+        data = sheet.cell(row=j, column=1)
+        if data != "":
+            myRange += 1
         # for otherfile in os.listdir(directory + "\\Uploads\python"):
         #     os.chdir(directory + "\\Uploads\python")
         #     otherfileAddress = os.getcwd()
@@ -137,28 +148,38 @@ for file in os.listdir(directory + "\\Uploads\python"):
         #             sheet.cell(row=columncounter, column=2).value = "Winner"
         #         columncounter += 1
 
-for file in os.listdir(directory + "\\Uploads\exe"):
-    os.chdir(directory + "\\Uploads\exe")
+for file in os.listdir(directory + "\\Uploads\cpp"):
+    os.chdir(directory + "\\Uploads\cpp")
     fileAddress = os.getcwd();
-    if file.endswith(".exe"):
-        for otherfile in os.listdir(directory + "\\Uploads\Sample"):
-            os.chdir(directory + "\\Uploads\Sample")
-            otherfileAddress = os.getcwd()
-            # otherfile = os.open("SampleCode.py",os.O_RDWR)
-            if otherfile.endswith(".py"):
-                wins = 0
-                sheet.cell(row=columncounter, column=1).value = file.split('.')[0]
-                for i in range(0, 5):
-                    result = runCodesTogether(file, otherfile, fileAddress, otherfileAddress)
-                    if result.out == 1:
-                        wins += 1
-                        col = 3 + i
-                        sheet.cell(row=columncounter, column=col).value = result.time
-                    else:
-                        col = 3 + i
-                        sheet.cell(row=columncounter, column=col).value = result.time
-                    sheet.cell(row=columncounter, column=2).value = wins
-                columncounter += 1
+    if file.endswith(".c") or file.endswith(".cpp"):
+        subprocess.call(["gcc", file])
+    myRange = 2
+    for i in range(1, myRange):
+        data = sheet.cell(row=i, column=1)
+        if file.split('.')[0] != data and file.endswith(".out"):
+            for otherfile in os.listdir(directory + "\\Uploads\Sample"):
+                os.chdir(directory + "\\Uploads\Sample")
+                otherfileAddress = os.getcwd()
+                # otherfile = os.open("SampleCode.py",os.O_RDWR)
+                if otherfile.endswith(".py"):
+                    wins = 0
+                    sheet.cell(row=columncounter, column=1).value = file.split('.')[0]
+                    for i in range(0, 5):
+                        result = runCodesTogether(file, otherfile, fileAddress, otherfileAddress)
+                        if result.out == 1:
+                            wins += 1
+                            col = 3 + i
+                            sheet.cell(row=columncounter, column=col).value = result.time
+                        else:
+                            col = 3 + i
+                            sheet.cell(row=columncounter, column=col).value = result.time
+                        sheet.cell(row=columncounter, column=2).value = wins
+                    columncounter += 1
+
+        j = i + 1
+        data = sheet.cell(row=j, column=1)
+        if data != "":
+            myRange += 1
     # if file.endswith(".exe"):
     #     for otherfile in os.listdir(directory + "\\Uploads\python"):
     #         os.chdir(directory + "\\Uploads\python")
@@ -200,25 +221,33 @@ for file in os.listdir(directory + "\\Uploads\exe"):
 for file in os.listdir(directory + "\\Uploads\pascal"):
     os.chdir(directory + "\\Uploads\pascal")
     fileAddress = os.getcwd();
-    if file.endswith(".pas"):
-        for otherfile in os.listdir(directory + "\\Uploads\Sample"):
-            os.chdir(directory + "\\Uploads\Sample")
-            otherfileAddress = os.getcwd()
-            # otherfile = os.open("SampleCode.py",os.O_RDWR)
-            if otherfile.endswith(".py"):
-                wins = 0
-                sheet.cell(row=columncounter, column=1).value = file.split('.')[0]
-                for i in range(0, 5):
-                    result = runCodesTogether(file, otherfile, fileAddress, otherfileAddress)
-                    if result.out == 1:
-                        wins += 1
-                        col = 3 + i
-                        sheet.cell(row=columncounter, column=col).value = result.time
-                    else:
-                        col = 3 + i
-                        sheet.cell(row=columncounter, column=col).value = result.time
-                    sheet.cell(row=columncounter, column=2).value = wins
-                columncounter += 1
+    myRange = 2
+    for i in range(1, myRange):
+        data = sheet.cell(row=i, column=1)
+        if file.endswith(".pas"):
+            for otherfile in os.listdir(directory + "\\Uploads\Sample"):
+                os.chdir(directory + "\\Uploads\Sample")
+                otherfileAddress = os.getcwd()
+                # otherfile = os.open("SampleCode.py",os.O_RDWR)
+                if otherfile.endswith(".py"):
+                    wins = 0
+                    sheet.cell(row=columncounter, column=1).value = file.split('.')[0]
+                    for i in range(0, 5):
+                        result = runCodesTogether(file, otherfile, fileAddress, otherfileAddress)
+                        if result.out == 1:
+                            wins += 1
+                            col = 3 + i
+                            sheet.cell(row=columncounter, column=col).value = result.time
+                        else:
+                            col = 3 + i
+                            sheet.cell(row=columncounter, column=col).value = result.time
+                        sheet.cell(row=columncounter, column=2).value = wins
+                    columncounter += 1
+
+        j = i + 1
+        data = sheet.cell(row=j, column=1)
+        if data != "":
+            myRange += 1
     # if file.endswith(".pas"):
     #     for otherfile in os.listdir(directory + "\\Uploads\python"):
     #         os.chdir(directory + "\\Uploads\python")
