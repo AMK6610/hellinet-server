@@ -108,7 +108,7 @@ while checkExcelFile == True:
     if teamName == "":
         checkExcelFile = False
     else:
-        teamNames.append()
+        teamNames.append(teamName)
         colNum += 1
 
 
