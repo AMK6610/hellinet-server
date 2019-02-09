@@ -29,7 +29,7 @@
                         <a class="nav-link" href="upload.php">Upload</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="leaderboard.php">Leaderboard</a>
+                        <a class="nav-link" href="#">Leaderboard</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav navbar-right custom-nav">

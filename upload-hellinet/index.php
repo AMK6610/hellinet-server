@@ -34,7 +34,7 @@
                         <a class="nav-link" href="upload.php">Upload</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="leaderboard.php">Leaderboard</a>
+                        <a class="nav-link" href="#">Leaderboard</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav navbar-right custom-nav">
@@ -47,9 +47,10 @@
                 </ul>
             </div>
         </nav>
-        <div class="container Card">
-                The name of the file should be your group's name <br>
-                Here goes our Home Page data
+        <div class="container Card" style="direction: rtl">
+            در بخش مسابقه هوش مصنوعی، شما بر سر طراحی یک هوش مصنوعی برتر رقابت می‌کنید. <br> <br>
+            در روند عادی تمامی مسابقات برنامه نویسی، همیشه قرار بود تا شما خودتان با یکدیگر رقابت کنید ولی اینجا قرار است تا شما برنامه هایی بنویسید که آنها با یکدیگر رقابت کنند. <br> <br>
+            برای دریافت توضیحات مسابقه به صفحه‌ی Downloads مراجعه کنید.
         </div>
     </body>
 </html>
