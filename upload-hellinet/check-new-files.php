@@ -1,14 +1,16 @@
 <?php
-    session_start();
+    include("config.php");
     $res = "";
-    if(isset($_SESSION['new_files'])){
-        for($i = 0 ; $i < count($_SESSION['new_files']); $i++){
-            $res = $res . $_SESSION['new_files'][$i];
-            if($i != count($_SESSION['new_files']) - 1)
-                $res = $res . "\n";
+    $files = mysqli_query($db, "SELECT * FROM Files");
+    echo mysqli_error($db);
+    if(mysqli_num_rows($files) > 0){
+        for($i = 0 ; $i < mysqli_num_rows($files); $i++){
+            $res = $res . mysqli_fetch_array($files, MYSQLI_ASSOC)["address"];
+            $res = $res . "####";
         }
+//        mysqli_query($db, "DELETE FROM Files");
+        echo $res;
     }
-    echo $res;
 /**
  * Created by PhpStorm.
  * User: Shinigami

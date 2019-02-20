@@ -4,13 +4,14 @@
     error_reporting(0);
 
     if($_SERVER["REQUEST_METHOD"] == "POST") {
-        $myusername = mysqli_real_escape_string($db,$_POST['username']);
-        $mypassword = mysqli_real_escape_string($db,$_POST['password']);
+        $myusername = $_POST['username'];
+        $mypassword = $_POST['password'];
 
-        $sql = "SELECT * FROM users WHERE username = '$myusername' and password = '$mypassword'";
+        $sql = "SELECT * FROM Users WHERE username = '$myusername' and password = '$mypassword'";
         $result = mysqli_query($db,$sql);
         $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
-        echo $row['groupname'];
+//        echo "<div id=1>" . $sql . " " . $myusername . " " . $mypassword . "</div>";
+//        echo $row['groupname'];
         $count = mysqli_num_rows($result);
         if($count == 1) {
             $_SESSION['login_user'] = $myusername;

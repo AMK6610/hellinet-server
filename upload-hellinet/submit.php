@@ -67,10 +67,7 @@
                     $groupname = $_SESSION['login_groupname'];
                     $time = time();
 
-                    if(!isset($_SESSION['new_files'])){
-                        $_SESSION['new_files'] = array();
-                    }
-                    array_push($_SESSION['new_files'], $url);
+                    mysqli_query($db, "INSERT INTO Files (address) VALUES ('$url')");
 //                    echo $username . " " . $groupname . " " . $time . " " . date('m/d/Y H:i:s', $time);
                     $sql = "INSERT INTO Scores (groupname, wins, time1, time2, time3, time4, time5) VALUES ('$groupname', -1, -1, -1, -1, -1, -1)";
                     mysqli_query($db,$sql);

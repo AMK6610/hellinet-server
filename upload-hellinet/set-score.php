@@ -11,7 +11,8 @@
         mysqli_query($db, $query);
     }
     else{
-        echo "ERR: the specified group did not upload any files yet and you're entering their score!";
+        echo $json_str;
+//        echo "ERR: the specified group did not upload any files yet and you're entering their score!";
     }
 
 /**
