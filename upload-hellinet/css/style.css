@@ -61,7 +61,6 @@
     display: block;
 }
 .file-uploader input[type=submit] {
-    margin-top: 2em;
     float: right;
 }
 
@@ -163,4 +162,10 @@ td, th {
 
 tr:nth-child(even) {
     background-color: #dddddd;
+}
+
+.custom-select {
+    width: 50%;
+    margin: 20px auto;
+    display: inline-block;
 }

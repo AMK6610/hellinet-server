@@ -1,4 +1,5 @@
 import copy
+import datetime
 import os
 import sys
 import time
@@ -21,8 +22,41 @@ player1Str = sys.argv[1]
 player2Str = sys.argv[2]
 player1_id = 1
 player2_id = 2
-player1 = Popen([player1Str, str(player1_id)], shell=True, stdout=PIPE, stdin=PIPE)
-player2 = Popen([player2Str, str(player2_id)], shell=True, stdout=PIPE, stdin=PIPE)
+
+player1_dir = player1Str.split('/')
+player2_dir = player2Str.split('/')
+
+############### hypo: python2 is python 2.7 in cmd
+
+cmd1 = 'python'
+cmd2 = 'python'
+if player1_dir[-2] == 'python2':
+    cmd1 = 'python2'
+    player1 = Popen([cmd1, player1Str, str(player1_id)], shell=True, stdout=PIPE, stdin=PIPE)
+elif player1_dir[-2] == 'cpp':
+    cmd1 = 'g++'
+    dir = os.getcwd()
+    # os.chdir('/'.join(player1_dir[:-1]))
+    player1 = Popen([cmd1, player1Str, '-o', player1_dir[-1].split('.')[0] + '.exe'], shell=True, stdout=PIPE, stdin=PIPE)
+    # os.chdir(dir)
+    player1.communicate()
+    player1 = Popen([player1_dir[-1].split('.')[0] + '.exe', str(player1_id)], shell=True, stdout=PIPE, stdin=PIPE)
+else:
+    player1 = Popen([cmd1, player1Str, str(player1_id)], shell=True, stdout=PIPE, stdin=PIPE)
+
+if player2_dir[-2] == 'python2':
+    cmd2 = 'python2'
+    player2 = Popen([cmd2, player2Str, str(player2_id)], shell=True, stdout=PIPE, stdin=PIPE)
+elif player2_dir[-2] == 'cpp':
+    cmd2 = 'g++'
+    dir = os.getcwd()
+    # os.chdir('/'.join(player1_dir[:-1]))
+    player2 = Popen([cmd2, player2Str, '-o', player2_dir[-1].split('.')[0] + '.exe'], shell=True, stdout=PIPE, stdin=PIPE)
+    # os.chdir(dir)
+    player2.communicate()
+    player2 = Popen([player2_dir[-1].split('.')[0] + '.exe', str(player2_id)], shell=True, stdout=PIPE, stdin=PIPE)
+else:
+    player2 = Popen([cmd2, player2Str, str(player2_id)], shell=True, stdout=PIPE, stdin=PIPE)
 
 interval = 0.2
 
@@ -43,6 +77,7 @@ def print_map(player, player_id, game_map):
         myPrint(player, node.factor)
         myPrint(player, node.soldier_count)
         # myPrint(player, node.soldier_count if node.ownerID == player_id else -1)
+
 
 def read_decision(player):
     result = player.stdout.readline().decode('UTF-8').replace("\r\n", "").split(' ')

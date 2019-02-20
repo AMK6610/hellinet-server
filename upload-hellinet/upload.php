@@ -51,6 +51,14 @@
                 <div class="file-chooser">
                     <input class="file-chooser__input" type="file" id="upload" name="upload[]" multiple>
                 </div>
+                <div>
+                    File type:
+                    <select class="custom-select" name="lang">
+                        <option value="python2"> python2 </option>
+                        <option value="python3"> python3 </option>
+                        <option value="cpp"> C++ </option>
+                    </select>
+                </div>
                 <input class="file-uploader__submit-button" type="submit" value="Upload">
             </form>
         </div>

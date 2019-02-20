@@ -1,9 +1,11 @@
 <?php
     session_start();
-
-    if(session_destroy()) {
-        header("Location: login.php");
-    }
+    unset($_SESSION['login_user']);
+    unset($_SESSION['login_groupname']);
+    header("Location: login.php");
+//    if(session_destroy()) {
+//        header("Location: login.php");
+//    }
 /**
  * Created by PhpStorm.
  * User: Shinigami
