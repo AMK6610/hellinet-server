@@ -16,7 +16,7 @@ randomClient = '../Uploads/python3/client_tester.py'
 
 def runCodesTogether(fileAddress, otherfileAddress):
     current_milli_time = int(round(time.time() * 1000))
-    print("SALAM", os.path.join(fileAddress), os.path.join(otherfileAddress))
+    print(os.path.join(fileAddress), os.path.join(otherfileAddress))
     fight = Popen(['python', 'server.py', os.path.join(fileAddress), os.path.join(otherfileAddress)],
                   shell=True,
                   stdout=PIPE, stdin=PIPE)
@@ -36,7 +36,7 @@ def runCodesTogether(fileAddress, otherfileAddress):
 
 # while True:
 t1 = time.time()
-url = 'http://gamestep.firststep.ir/upload-hellinet/'
+url = 'http://192.168.7.226/hellinet/'
 files = requests.get(url + "check-new-files.php").text.split('####')
 # print(files, requests.get(url + "check-new-files.php"))
 for file in files:
