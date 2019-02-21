@@ -11,8 +11,8 @@ include('session.php');
 
     <script type="text/javascript" src="js/effects.js"></script>
     <!--<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css"/>-->
+    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap2.min.css"/>
     <!--<script type="text/javascript" src="bootstrap/js/bootstrap.js"></script>-->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -34,7 +34,7 @@ include('session.php');
                 <a class="nav-link" href="upload.php">Upload</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Leaderboard</a>
+                <a class="nav-link" href="leaderboard.php">Leaderboard</a>
             </li>
         </ul>
         <ul class="navbar-nav navbar-right custom-nav">
@@ -67,7 +67,7 @@ include('session.php');
             </th>
         </tr>
         <?php
-            require_once "vendor/autoload.php";
+//            require_once "vendor/autoload.php";
             function cmp($a, $b)
             {
                 return intval($a->score) < intval($b->score);
@@ -86,26 +86,35 @@ include('session.php');
                     $this->score = $score;
                 }
             }
-
-            $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load('../OutputExcel.xlsx');
-            $worksheet = $spreadsheet->getActiveSheet();
-            $row = 2;
+            $res = mysqli_query($db, "SELECT * FROM Scores");
+            $i = 0;
+            $cnt = mysqli_num_rows($res);
             $teams = array();
-            while($worksheet->getCellByColumnAndRow(1, $row) != ""){
-                $team_name = $worksheet->getCellByColumnAndRow(1, $row)->getValue();
-                $wins = $worksheet->getCellByColumnAndRow(2, $row)->getValue();
-                $times = array($worksheet->getCellByColumnAndRow(3, $row)->getValue(),
-                    $worksheet->getCellByColumnAndRow(4, $row)->getValue(),
-                    $worksheet->getCellByColumnAndRow(5, $row)->getValue(),
-                    $worksheet->getCellByColumnAndRow(6, $row)->getValue(),
-                    $worksheet->getCellByColumnAndRow(7, $row)->getValue());
+            while($i < $cnt){
+                $row = mysqli_fetch_array($res,MYSQLI_ASSOC);
+                $team_name = $row["groupname"];
+                $wins = $row["wins"];
+                $times = array($row["time1"],
+                    $row["time2"],
+                    $row["time3"],
+                    $row["time4"],
+                    $row["time5"]);
                 $max_time = max($times);
-                $score = 10000 * $wins * (1.0/array_sum($times));
+		$score = $row["score"];
+		if($max_time == -1){
+			$max_time = 0;
+			$score = 0;
+			$wins = 0;
+		}
                 array_push($teams, new Team($team_name, $wins, $max_time, $score));
-                $row += 1;
+                $i++;
             }
+	    $arr = array();
             usort($teams, "cmp");
             for($i = 0; $i < sizeof($teams); $i++){
+                if(in_array($teams[$i]->team_name, $arr))
+                    continue;
+                array_push($arr, $teams[$i]->team_name);
                 echo "<tr>";
                 echo "<td>". (string)($i + 1) . "</td>";
                 echo "<td>". $teams[$i]->team_name . "</td>";

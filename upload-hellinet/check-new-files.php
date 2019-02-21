@@ -8,7 +8,7 @@
             $res = $res . mysqli_fetch_array($files, MYSQLI_ASSOC)["address"];
             $res = $res . "####";
         }
-//        mysqli_query($db, "DELETE FROM Files");
+        mysqli_query($db, "DELETE FROM Files");
         echo $res;
     }
 /**

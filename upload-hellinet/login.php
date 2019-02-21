@@ -1,4 +1,14 @@
-<?php
+
+<html lang="en">
+<head>
+	<title>Login</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="css/util.css">
+	<link rel="stylesheet" type="text/css" href="css/login.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<link rel="stylesheet" href="css/style.css">
+    <?php
     include("config.php");
     session_start();
     error_reporting(0);
@@ -8,6 +18,7 @@
         $mypassword = $_POST['password'];
 
         $sql = "SELECT * FROM Users WHERE username = '$myusername' and password = '$mypassword'";
+        mysqli_query($db, "SET character_set_results=utf8");
         $result = mysqli_query($db,$sql);
         $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
 //        echo "<div id=1>" . $sql . " " . $myusername . " " . $mypassword . "</div>";
@@ -21,16 +32,7 @@
             $error = "Your Login Name or Password is invalid";
         }
     }
-?>
-<html lang="en">
-<head>
-	<title>Login</title>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" type="text/css" href="css/util.css">
-	<link rel="stylesheet" type="text/css" href="css/login.css">
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-	<link rel="stylesheet" href="css/style.css">
+    ?>
 </head>
 <body>
 	<div class="container limiter">

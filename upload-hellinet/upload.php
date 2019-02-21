@@ -29,7 +29,7 @@
                         <a class="nav-link" href="upload.php">Upload</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Leaderboard</a>
+                        <a class="nav-link" href="leaderboard.php">Leaderboard</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav navbar-right custom-nav">
@@ -43,7 +43,7 @@
             </div>
         </nav>
         <div class="container Card">
-            Please upload your code here: (The name of the file should be your team's name )
+            Please upload your code here: (The name of the file should be your team's username )
             <form method="post" class="file-uploader" action="submit.php" enctype="multipart/form-data">
                 <div class="file-uploader__message-area">
                     <p>Select a file to upload</p>

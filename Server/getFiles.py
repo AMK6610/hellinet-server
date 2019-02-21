@@ -11,7 +11,7 @@ class Result:
         self.time = 20
 
 
-randomClient = '../Uploads/python3/client_tester.py'
+randomClient = '../Uploads/Sample/client_tester.py'
 
 
 def runCodesTogether(fileAddress, otherfileAddress):
@@ -43,12 +43,12 @@ for file in files:
     # print(file)
     if file == "":
         continue
-    response = urllib.request.urlretrieve(file, "../Uploads/python3/" + file.split("/")[-1])
+    response = urllib.request.urlretrieve(file, "../Uploads/" + file.split("/")[-2] + "/" + file.split("/")[-1])
 
     wins = 0
     times = [0, 0, 0, 0, 0]
     for i in range(5):
-        res = runCodesTogether("../Uploads/python3/" + file.split("/")[-1], randomClient)
+        res = runCodesTogether("../Uploads/" + file.split("/")[-2] + "/" + file.split("/")[-1], randomClient)
         if res.out == 1:
             wins += 1
         times[i] = res.time
@@ -59,8 +59,8 @@ for file in files:
             'time3': times[2],
             'time4': times[3],
             'time5': times[4]}
-    # print(data)
+    print(data)
     t = requests.post(url + "set-score.php", json=data)
     print(t.text)
 
-time.sleep(5 - (time.time() - t1))
+# time.sleep(5 - (time.time() - t1))
